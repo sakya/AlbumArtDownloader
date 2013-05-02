@@ -1,4 +1,5 @@
-AlbumArtDownloader
+AlbumArtDownloader v.1.1.0.0
+Copyright © 2013 Paolo Iommarini <sakya_tg@yahoo.it>
 
 Usage: AlbumArtDownloader [OPTIONS]
 Tags audio files with the album art and (optionally) saves a file in the folder
@@ -11,6 +12,7 @@ the file name to use.
 
 Options:
   -h, --help            show help and exit
+  -l                    show license
   -p PATH, --path PATH  set the path to scan for audio files
   -f NAME, --file NAME  set the name for the album art file
                         Default: empty (don't save file)
