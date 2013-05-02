@@ -15,6 +15,11 @@ namespace AlbumArtDownloader
         return;
       }
 
+      if (args.Contains("-l")){
+        PrintLicense();
+        return;
+      }
+
       bool result;
       ArtDownloaderOptions opt = ParseArguments(args, out result);
       if (result) {
@@ -23,10 +28,34 @@ namespace AlbumArtDownloader
       }
     }
 
-    static void PrintHelp()
+    static void PrintInfo()
     {
       Console.WriteLine(string.Format("AlbumArtDownloader v.{0}", Assembly.GetExecutingAssembly().GetName().Version));
+      Console.WriteLine("Copyright © 2013 Paolo Iommarini <sakya_tg@yahoo.it>");
       Console.WriteLine(string.Empty);
+    }
+
+    static void PrintLicense()
+    {
+      PrintInfo();
+
+      Console.WriteLine("This program is free software: you can redistribute it and/or modify");
+      Console.WriteLine("it under the terms of the GNU General Public License as published by");
+      Console.WriteLine("the Free Software Foundation, either version 3 of the License, or");
+      Console.WriteLine("(at your option) any later version.");
+      Console.WriteLine(string.Empty);
+      Console.WriteLine("This program is distributed in the hope that it will be useful,");
+      Console.WriteLine("but WITHOUT ANY WARRANTY; without even the implied warranty of");
+      Console.WriteLine("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the");
+      Console.WriteLine("GNU General Public License for more details.");
+
+      Console.WriteLine("You should have received a copy of the GNU General Public License");
+      Console.WriteLine("along with this program.  If not, see <http://www.gnu.org/licenses/>.");
+    }
+
+    static void PrintHelp()
+    {
+      PrintInfo();
 
       Console.WriteLine("Usage: AlbumArtDownloader [OPTIONS]");
       Console.WriteLine("Tags audio files with the album art and (optionally) saves a file in the folder");
@@ -41,6 +70,7 @@ namespace AlbumArtDownloader
 
       Console.WriteLine("Options:");
       Console.WriteLine("  -h, --help            show help and exit");
+      Console.WriteLine("  -l                    show license");
       Console.WriteLine("  -p PATH, --path PATH  set the path to scan for audio files");
       Console.WriteLine("  -f NAME, --file NAME  set the name for the album art file");
       Console.WriteLine("                        Default: empty (don't save file)");

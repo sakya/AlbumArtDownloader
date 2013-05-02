@@ -47,6 +47,7 @@ namespace AlbumArtDownloader
   {
     ArtDownloaderOptions m_Options = null;
     int m_TaggedFiles = 0;
+    int m_TotalFiles = 0;
     Dictionary<string, string> m_ImagesCache = new Dictionary<string, string>();
     static string m_TempPath = System.IO.Path.GetTempPath();
 
@@ -59,7 +60,8 @@ namespace AlbumArtDownloader
     {
       ProcessFolder(m_Options.Path);
       Console.WriteLine(string.Empty);
-      Console.WriteLine(string.Format("Total files tagged: {0}", m_TaggedFiles));
+      Console.WriteLine(string.Format("Total files : {0}", m_TotalFiles));
+      Console.WriteLine(string.Format("Files tagged: {0}", m_TaggedFiles));
       foreach (string value in m_ImagesCache.Values) {
         try {
           File.Delete(value);
@@ -84,6 +86,7 @@ namespace AlbumArtDownloader
 
       List<TagLib.File> tagFiles = new List<TagLib.File>();
       foreach (string file in files) {
+        m_TotalFiles++;
         try {
           TagLib.File f = TagLib.File.Create(file);
           if (f.Properties.MediaTypes == TagLib.MediaTypes.Audio)
@@ -138,12 +141,14 @@ namespace AlbumArtDownloader
                   TagLib.Picture picture = new TagLib.Picture(imagePath);
                   pictures[0] = picture;
                   f.Tag.Pictures = pictures;
-                  Console.WriteLine("  Tagging file...");
+                  Console.Write("  Tagging file...");
                   try {
                     f.Save();
+                    Console.WriteLine("done");
                     m_TaggedFiles++;
                   }
                   catch (Exception ex) {
+                    Console.WriteLine("failed");
                     Console.WriteLine("   Error tagging file");
                     Console.WriteLine(ex.Message);
                   }
